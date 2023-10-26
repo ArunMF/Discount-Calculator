@@ -10,13 +10,16 @@ function Calculator() {
     const [saved,setSaved] = useState(0);
 
     function calculatePrice(){
-        setDiscPrice(discPrice+(amount-((amount*percentage)/100)))
+        setDiscPrice(discPrice+Math.floor(amount-((amount*percentage)/100)))
         console.log(discPrice);
-        setSaved(discPrice+((amount*percentage)/100))
+        setSaved(discPrice+Math.floor((amount*percentage)/100))
     }
 
     function resetFunc(){
-
+        setAmount('');
+        setPercentage('');
+        setDiscPrice(0);
+        setSaved(0);
     }
 
     return (
@@ -25,8 +28,8 @@ function Calculator() {
                 <h2>Discount Calculator</h2>
                 <p>Use the discount calculator to find out the exact amount you will save!</p>
                 <div className='container text-center'>
-                    <TextField onChange={(e)=>setAmount(e.target.value)} className='w-50 my-3' id="outlined-basic" label="Amount ($)" variant="outlined" /><br />
-                    <TextField onChange={(e)=>setPercentage(e.target.value)} className='w-50 mb-3' id="outlined-basic" label="Discount applied (%)" variant="outlined" /><br />
+                    <TextField type='number' onChange={(e)=>setAmount(e.target.value)} value={amount} className='w-50 my-3' id="outlined-basic" label="Amount ($)" variant="outlined" /><br />
+                    <TextField type='number' onChange={(e)=>setPercentage(e.target.value)} value={percentage} className='w-50 mb-3' id="outlined-basic" label="Discount applied (%)" variant="outlined" /><br />
                     {/* <TextField className='w-50' id="outlined-basic" label="" variant="outlined" /> */}
                     <Button onClick={calculatePrice} variant="contained" className='me-3 rounded shadow' color="success">Calculate</Button>
                     <Button onClick={resetFunc} variant="outlined" className='rounded shadow' color="error">Reset</Button>
